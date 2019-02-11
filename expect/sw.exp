@@ -1,0 +1,25 @@
+#!/usr/bin/expect
+spawn telnet [lindex $argv 0]
+
+expect "UserName:"
+send "admin\n"
+expect "Password:"
+send "admin\n"
+
+send "show dev\r"
+expect {
+-timeout 3
+"Disconnected" {
+log_file -a /home/administrator/project/RPS.log
+send_log "Disconnected "
+}
+}
+log_file /home/administrator/project/RPS.log
+send_log "[lindex $argv 0] \r"
+#***********************************
+send " \r"
+send "q \r"
+sleep 1
+send "q\n"
+send "logout\r"
+send eof
