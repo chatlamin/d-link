@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+set SWITCH_IP [lindex $argv 0]
+log_user 1
+log_file logs.txt
+spawn telnet $SWITCH_IP
+send "Ваш_Логин\r"
+expect "Password:" {send "Ваш_Пароль\r"}
+send "Ваша_Команда\r"
+send " \r"
+send "logout\r"
+expect eof
